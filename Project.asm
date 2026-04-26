@@ -76,3 +76,12 @@ void runHDBenchmark(string filename, size_t chunkSize, string label) {
     chrono::duration<double> diff = end - start;
     cout << label << ": " << diff.count() << " seconds" << endl;
 }
+int main() {
+    runIntegerBenchmark();
+    runFloatBenchmark();
+    runMemoryBenchmark();
+    runHDBenchmark("test1.bin", 100, "HD Benchmark 1 (100B)");
+    runHDBenchmark("test2.bin", 10000, "HD Benchmark 2 (10000B)");
+
+    return 0;
+}
