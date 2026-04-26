@@ -53,3 +53,26 @@ void runMemoryBenchmark() {
     chrono::duration<double> diff = end - start;
     cout << "Memory Benchmark: " << diff.count() << " seconds" << endl;
 }
+void runHDBenchmark(string filename, size_t chunkSize, string label) {
+    auto start = now();
+    const long long TOTAL_BYTES = 1000000000; // 1 GB
+    vector<char> buffer(chunkSize, 'x');
+
+    // Write file
+    ofstream outFile(filename, ios::binary);
+    for (long long i = 0; i < TOTAL_BYTES / chunkSize; ++i) {
+        outFile.write(buffer.data(), chunkSize);
+    }
+    outFile.close();
+
+    // Read file
+    ifstream inFile(filename, ios::binary);
+    for (long long i = 0; i < TOTAL_BYTES / chunkSize; ++i) {
+        inFile.read(buffer.data(), chunkSize);
+    }
+    inFile.close();
+
+    auto end = now();
+    chrono::duration<double> diff = end - start;
+    cout << label << ": " << diff.count() << " seconds" << endl;
+}
