@@ -42,7 +42,7 @@ void runMemoryBenchmark() {
     vector<int32_t> arr(SIZE, 1);
     volatile int32_t sink = 0;
 
-    for (int iter = 0; iter < 10; ++iter) {
+    for (int iter = 0; iter < 40; ++iter) {
         // Read Phase
         for (size_t i = 0; i < SIZE; ++i) sink = arr[i];
         // Write Phase
