@@ -36,3 +36,20 @@ void runFloatBenchmark() {
     chrono::duration<double> diff = end - start;
     cout << "Float Benchmark: " << diff.count() << " seconds" << endl;
 }
+void runMemoryBenchmark() {
+    auto start = now();
+    const size_t SIZE = 125000000; // 500MB (125M * 4 bytes)
+    vector<int32_t> arr(SIZE, 1);
+    volatile int32_t sink = 0;
+
+    for (int iter = 0; iter < 10; ++iter) {
+        // Read Phase
+        for (size_t i = 0; i < SIZE; ++i) sink = arr[i];
+        // Write Phase
+        for (size_t i = 0; i < SIZE; ++i) arr[i] = sink;
+    }
+
+    auto end = now();
+    chrono::duration<double> diff = end - start;
+    cout << "Memory Benchmark: " << diff.count() << " seconds" << endl;
+}
