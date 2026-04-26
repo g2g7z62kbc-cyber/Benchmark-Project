@@ -24,3 +24,15 @@ void runIntegerBenchmark() {
     chrono::duration<double> diff = end - start;
     cout << "Integer Benchmark: " << diff.count() << " seconds" << endl;
 }
+void runFloatBenchmark() {
+    auto start = now();
+    volatile double a = 10.5, b = 20.5, res = 0.0;
+
+    for (long long i = 0; i < 10000000000LL; ++i) res = a + b;
+    for (long long i = 0; i < 5000000000LL; ++i) res = a * b;
+    for (long long i = 0; i < 2000000000LL; ++i) res = b / a;
+
+    auto end = now();
+    chrono::duration<double> diff = end - start;
+    cout << "Float Benchmark: " << diff.count() << " seconds" << endl;
+}
